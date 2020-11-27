@@ -1,0 +1,34 @@
+package business;
+
+import business.custom.impl.CustomerBOImpl;
+import business.custom.impl.ItemBOImpl;
+import business.custom.impl.OrderBOImpl;
+
+public class BOFactory {
+
+    //Start of Singleton Design Pattern
+    private static BOFactory boFactory;
+
+    private BOFactory() {
+
+    }
+
+    public static BOFactory getInstance() {
+
+        return (boFactory == null) ? boFactory = new BOFactory() : boFactory;
+    }
+    //ENd of Singleton Design Pattern
+
+    public <T extends SuperBO> T getBO(BOType boType) {
+        switch (boType) {
+            case CUSTOMER:
+                return (T) new CustomerBOImpl();
+            case ITEM:
+                return (T) new ItemBOImpl();
+            case ORDER:
+                return (T) new OrderBOImpl();
+            default:
+                return null;
+        }
+    }
+}
